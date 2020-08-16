@@ -16,6 +16,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<spring.module.vesion>2.3.3.RELEASE</spring.module.vesion>
 	</properties>
 
 	<dependencies>
@@ -35,6 +36,7 @@
 		<dependency>
 		    <groupId>org.springframework.security.oauth.boot</groupId>
 		    <artifactId>spring-security-oauth2-autoconfigure</artifactId>
+			<version>${spring.module.vesion}</version>
 		</dependency>		
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
@@ -48,6 +50,8 @@
 		<dependency>
 			<groupId>org.springframework.security.oauth</groupId>
 			<artifactId>spring-security-oauth2</artifactId>
+			<version>${spring.module.vesion}</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<!-- for java 11-->
