@@ -45,6 +45,7 @@
 		<dependency>
 		    <groupId>org.springframework.security.oauth</groupId>
 		    <artifactId>spring-security-oauth-parent</artifactId>
+			<version>${spring.module.vesion}</version>
 		    <type>pom</type>
 		</dependency>
 		<dependency>
