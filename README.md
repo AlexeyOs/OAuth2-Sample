@@ -2,6 +2,7 @@
 
 ## ENG
 A sample for authorization is taken from [medium](https://medium.com/@archnaaju/oauth2-and-spring-boot-2-a-complete-guide-to-setup-a-separate-authorization-server-resource-4d760cc0b1e1)
+
 Installation instructions:
 1) Load database structure from [sql файла](resource-server/sql/customers-db.sql)
 2) Set the following parameters for connection in [the configuration file](resource-server/src/main/resources/application.properties)
