@@ -7,6 +7,7 @@ import com.example.res.server.repository.ProductRepository;
 import com.example.res.server.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -33,11 +34,13 @@ public class ProductServiceImpl implements ProductService {
         return productMapper.toDto(productEntity);
     }
 
+    @Transactional
     @Override
     public void updateProduct(Product product) {
         productRepository.save(product);
     }
 
+    @Transactional
     @Override
     public void deleteProduct(UUID productId) {
         Product productEntityForDelete = productRepository.getOne(productId);

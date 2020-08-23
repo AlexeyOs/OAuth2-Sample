@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Controller
 @RequestMapping("api/v1")
-public class PublicResourceProductController {
+public class PublicProductController {
 
     @Autowired
     private CustomerService customerService;

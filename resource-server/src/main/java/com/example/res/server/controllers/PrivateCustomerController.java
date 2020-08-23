@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Controller
 @RequestMapping("api/v1")
-public class PrivateResourceCustomerController {
+public class PrivateCustomerController {
     @Autowired
     private CustomerService customerService;
 

@@ -32,7 +32,7 @@ import java.util.UUID;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = ResourceServerApplication.class)
-public class PublicResourceCustomerControllerTest {
+public class PublicCustomerControllerTest {
 
     @Autowired
     private WebApplicationContext context;
@@ -55,7 +55,7 @@ public class PublicResourceCustomerControllerTest {
 
     void addCustomer() throws Exception {
         String customerJson = "{\n" +
-                "    \"title\" :\"test1\"\n" +
+                "    \"title\" :\"testPublic\"\n" +
                 "}";
         ResultActions resultActions = this.mockMvc.perform(post("/api/v1/customers")
                 .content(customerJson)
@@ -73,7 +73,7 @@ public class PublicResourceCustomerControllerTest {
     public void getCustomer() throws Exception {
         this.mockMvc.perform(get("/api/v1/customers/" + customerCreatedId))
                 .andDo(print())
-                .andExpect((ResultMatcher) jsonPath("$.title", is("test1")))
+                .andExpect((ResultMatcher) jsonPath("$.title", is("testPublic")))
                 .andExpect((ResultMatcher) jsonPath("$.isDeleted", is(false)))
                 .andExpect((ResultMatcher) jsonPath("$.createdAt").isNotEmpty())
                 .andExpect(status().isOk());

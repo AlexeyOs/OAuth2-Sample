@@ -8,6 +8,7 @@ import com.example.res.server.repository.CustomerRepository;
 import com.example.res.server.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.*;
@@ -37,6 +38,7 @@ public class CustomerServiceImpl implements CustomerService {
         return customerMapper.toDto(customerEntity);
     }
 
+    @Transactional
     @Override
     public CustomerDto addCustomer(CustomerDto customerDto) {
         Customer customerEntity = customerMapper.toEntity(customerDto);
@@ -45,11 +47,13 @@ public class CustomerServiceImpl implements CustomerService {
         return customerMapper.toDto(customerRepository.save(customerEntity));
     }
 
+    @Transactional
     @Override
     public void updateCustomer(Customer customer) {
         customerRepository.save(customer);
     }
 
+    @Transactional
     @Override
     public void deleteCustomer(UUID customerId) {
         Customer customerEntityForDelete = customerRepository.getOne(customerId);

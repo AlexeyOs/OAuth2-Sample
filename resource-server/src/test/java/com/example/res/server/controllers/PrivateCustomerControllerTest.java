@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = ResourceServerApplication.class)
-public class PrivateResourceCustomerControllerTest {
+public class PrivateCustomerControllerTest {
     @Autowired
     private WebApplicationContext context;
 

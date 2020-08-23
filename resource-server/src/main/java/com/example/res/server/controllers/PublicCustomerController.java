@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("api/v1")
-public class PublicResourceCustomerController {
+public class PublicCustomerController {
 	@Autowired
 	private CustomerService customerService;
 

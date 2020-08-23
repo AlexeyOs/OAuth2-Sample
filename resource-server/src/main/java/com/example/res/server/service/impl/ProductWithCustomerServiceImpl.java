@@ -9,6 +9,7 @@ import com.example.res.server.repository.ProductRepository;
 import com.example.res.server.service.ProductWithCustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -25,6 +26,7 @@ public class ProductWithCustomerServiceImpl implements ProductWithCustomerServic
     @Autowired
     private ProductMapper productMapper;
 
+    @Transactional
     @Override
     public ProductDto addProductByCustomer(UUID customerId, ProductDto productDto) {
         Customer customerEntity = customerRepository.getOne(customerId);
