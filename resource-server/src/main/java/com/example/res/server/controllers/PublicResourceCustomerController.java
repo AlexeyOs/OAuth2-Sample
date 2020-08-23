@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.example.res.server.dto.CustomerDto;
+import com.example.res.server.dto.ProductDto;
 import com.example.res.server.entity.Customer;
 import com.example.res.server.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +25,8 @@ public class PublicResourceCustomerController {
 	private CustomerService customerService;
 
 	@GetMapping("customers/{customerId}")
-	public HttpEntity<?> getCustomer(@PathVariable("customerId") UUID id) {
-		Optional<Customer> customer = customerService.findCustomerById(id);
-		if (customer.isPresent()) {
-			return new ResponseEntity<Customer>(customer.get(), HttpStatus.OK);
-		} else {
-			return new ResponseEntity<String>("Not found Customer with id = " + id, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+	public HttpEntity<CustomerDto> getCustomer(@PathVariable("customerId") UUID id) {
+		return ResponseEntity.ok(customerService.findCustomerById(id));
 	}
 
 	@GetMapping("customers")

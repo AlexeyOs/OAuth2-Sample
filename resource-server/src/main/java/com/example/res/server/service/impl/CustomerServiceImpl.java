@@ -1,7 +1,10 @@
 package com.example.res.server.service.impl;
 
+import com.example.res.server.dto.CustomerDto;
 import com.example.res.server.entity.Customer;
 
+import com.example.res.server.entity.Product;
+import com.example.res.server.mapper.CustomerMapper;
 import com.example.res.server.repository.CustomerRepository;
 import com.example.res.server.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,9 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
+    @Autowired
+    private CustomerMapper customerMapper;
+
     @Override
     public List<Customer> findAllCustomers() {
         Iterable<Customer> customerIterable = customerRepository.findAll();
@@ -25,8 +31,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Optional<Customer> findCustomerById(UUID customerId) {
-        return customerRepository.findById(customerId);
+    public CustomerDto findCustomerById(UUID customerId) {
+        Customer customerEntity = customerRepository.getOne(customerId);
+        return customerMapper.toDto(customerEntity);
     }
 
     @Override
@@ -41,7 +48,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void deleteCustomer(UUID customerId) {
-        Optional<Customer> customerForDelete = findCustomerById(customerId);
-        customerForDelete.ifPresent(customer -> customerRepository.delete(customer));
+        Customer customerEntityForDelete = customerRepository.getOne(customerId);
+        customerEntityForDelete.setIsDeleted(true);
+        customerRepository.save(customerEntityForDelete);
     }
 }

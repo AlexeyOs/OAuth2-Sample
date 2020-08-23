@@ -53,6 +53,10 @@ public abstract class AbstractEntity implements Serializable {
         return createdAt;
     }
 
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public void setDeleted(Boolean deleted) {
         isDeleted = deleted;
     }

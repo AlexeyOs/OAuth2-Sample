@@ -1,5 +1,6 @@
 package com.example.res.server.controllers;
 
+import com.example.res.server.dto.ProductDto;
 import com.example.res.server.entity.Customer;
 import com.example.res.server.entity.Product;
 import com.example.res.server.service.CustomerService;
@@ -32,21 +33,21 @@ public class PublicResourceProductController {
     @Autowired
     private ProductWithCustomerService productWithCustomerService;
 
-    @GetMapping("customers/{customerId}/products")
-    public HttpEntity<List<Product>> getAllCustomers(@PathVariable("customerId") UUID customerId) {
-        Optional<Customer> customer = customerService.findCustomerById(customerId);
-        Optional<List<Product>> productList = Optional.empty();
-        if (customer.isPresent()) {
-            productList = Optional.ofNullable(customer.get().getProductList());
-        }
-        return productList.map(products -> new ResponseEntity<>(products, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(
-                                Collections.emptyList(),
-                                HttpStatus.INTERNAL_SERVER_ERROR
-                        )
-                );
-
-    }
+//    @GetMapping("customers/{customerId}/products")
+//    public HttpEntity<List<Product>> getAllCustomers(@PathVariable("customerId") UUID customerId) {
+//        Optional<Customer> customer = customerService.findCustomerById(customerId);
+//        Optional<List<Product>> productList = Optional.empty();
+//        if (customer.isPresent()) {
+//            productList = Optional.ofNullable(customer.get().getProductList());
+//        }
+//        return productList.map(products -> new ResponseEntity<>(products, HttpStatus.OK))
+//                .orElseGet(() -> new ResponseEntity<>(
+//                                Collections.emptyList(),
+//                                HttpStatus.INTERNAL_SERVER_ERROR
+//                        )
+//                );
+//
+//    }
 
     @PostMapping("customers/{customerId}/products")
     public ResponseEntity<Void> addCustomer(@PathVariable("customerId") UUID customerId,
@@ -63,13 +64,7 @@ public class PublicResourceProductController {
     }
 
     @GetMapping("products/{productId}")
-    public HttpEntity<?> getProductById(@PathVariable("productId") UUID productId) {
-        Optional<Product> product = productService.findProductById(productId);
-        if (product.isPresent()) {
-            return new ResponseEntity<Product>(product.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<String>("Not found Product with id = " + productId,
-                    HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public HttpEntity<ProductDto> getProductById(@PathVariable("productId") UUID productId) {
+        return ResponseEntity.ok(productService.findProductById(productId));
     }
 }

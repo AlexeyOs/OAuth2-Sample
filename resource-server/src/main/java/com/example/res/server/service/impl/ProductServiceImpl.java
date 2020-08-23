@@ -1,7 +1,8 @@
 package com.example.res.server.service.impl;
 
-import com.example.res.server.entity.Customer;
+import com.example.res.server.dto.ProductDto;
 import com.example.res.server.entity.Product;
+import com.example.res.server.mapper.ProductMapper;
 import com.example.res.server.repository.ProductRepository;
 import com.example.res.server.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private ProductMapper productMapper;
 
     @Override
     public List<Product> findAllProducts() {
@@ -25,8 +28,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Optional<Product> findProductById(UUID productId) {
-        return productRepository.findById(productId);
+    public ProductDto findProductById(UUID productId) {
+        Product productEntity = productRepository.getOne(productId);
+        return productMapper.toDto(productEntity);
     }
 
     @Override
@@ -36,7 +40,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProduct(UUID productId) {
-        Optional<Product> productForDelete = findProductById(productId);
-        productForDelete.ifPresent(customer -> productRepository.delete(customer));
+        Product productEntityForDelete = productRepository.getOne(productId);
+        productEntityForDelete.setIsDeleted(true);
+        productRepository.save(productEntityForDelete);
     }
 }
