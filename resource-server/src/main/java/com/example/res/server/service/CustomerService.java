@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.UUID;
 
 public interface CustomerService {
-    List<Customer> findAllCustomers();
+    List<CustomerDto> findAllCustomers();
     CustomerDto findCustomerById(UUID customerId);
-    Customer addCustomer(Customer customer);
+    CustomerDto addCustomer(CustomerDto customerDto);
     void updateCustomer(Customer customer);
     void deleteCustomer(UUID customerId);
 }

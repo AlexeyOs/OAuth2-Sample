@@ -3,14 +3,15 @@ package com.example.res.server.service.impl;
 import com.example.res.server.dto.CustomerDto;
 import com.example.res.server.entity.Customer;
 
-import com.example.res.server.entity.Product;
 import com.example.res.server.mapper.CustomerMapper;
 import com.example.res.server.repository.CustomerRepository;
 import com.example.res.server.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -22,12 +23,12 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerMapper customerMapper;
 
     @Override
-    public List<Customer> findAllCustomers() {
-        Iterable<Customer> customerIterable = customerRepository.findAll();
-        Iterator<Customer> customerIterator = customerIterable.iterator();
-        List<Customer> customerList = new ArrayList<>();
-        customerIterator.forEachRemaining(customerList::add);
-        return customerList;
+    public List<CustomerDto> findAllCustomers() {
+        List<Customer> customerEntityList = customerRepository.findAll();
+        return customerEntityList
+                .stream()
+                .map(customer -> customerMapper.toDto(customer))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -37,8 +38,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer addCustomer(Customer customer) {
-        return customerRepository.save(customer);
+    public CustomerDto addCustomer(CustomerDto customerDto) {
+        Customer customerEntity = customerMapper.toEntity(customerDto);
+        customerEntity.setIsDeleted(false);
+        customerEntity.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+        return customerMapper.toDto(customerRepository.save(customerEntity));
     }
 
     @Override
