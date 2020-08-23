@@ -1,6 +1,6 @@
 package com.example.res.server.controllers;
 
-import com.example.res.server.entity.Customer;
+import com.example.res.server.dto.CustomerDto;
 import com.example.res.server.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,10 +18,10 @@ public class PrivateCustomerController {
     private CustomerService customerService;
 
     @PutMapping("customers/{customerId}")
-    public ResponseEntity<Customer> updateCustomer(@PathVariable("customerId") UUID customerId, @RequestBody Customer customer) {
-        customerService.updateCustomer(customer);
-        return new ResponseEntity<Customer>(customer, HttpStatus.OK);
+    public ResponseEntity<CustomerDto> updateCustomer(@PathVariable("customerId") UUID customerId, @RequestBody CustomerDto customerDto) {
+        return ResponseEntity.ok(customerService.updateCustomer(customerId, customerDto));
     }
+
     @DeleteMapping("customers/{customerId}")
     public ResponseEntity<Void> deleteCustomer(@PathVariable("customerId") UUID customerId) {
         customerService.deleteCustomer(customerId);
