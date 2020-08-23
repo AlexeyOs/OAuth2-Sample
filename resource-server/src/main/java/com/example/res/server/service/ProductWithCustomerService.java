@@ -1,13 +1,11 @@
 package com.example.res.server.service;
 
 import com.example.res.server.dto.ProductDto;
-import com.example.res.server.entity.Product;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface ProductWithCustomerService {
-    Optional<Product> addProductByCustomer(UUID customerId, Product product);
+    ProductDto addProductByCustomer(UUID customerId, ProductDto productDto);
     List<ProductDto> getProductsByCustomer(UUID customerId);
 }

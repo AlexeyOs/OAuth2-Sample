@@ -12,7 +12,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductDto extends AbstractDto {
-    private UUID customerId;
     private String title;
     private String description;
     private Long price;

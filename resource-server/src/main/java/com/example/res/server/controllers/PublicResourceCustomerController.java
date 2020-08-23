@@ -6,7 +6,6 @@ import java.util.UUID;
 import com.example.res.server.dto.CustomerDto;
 import com.example.res.server.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +18,7 @@ public class PublicResourceCustomerController {
 	private CustomerService customerService;
 
 	@GetMapping("customers/{customerId}")
-	public HttpEntity<CustomerDto> getCustomer(@PathVariable("customerId") UUID id) {
+	public ResponseEntity<CustomerDto> getCustomer(@PathVariable("customerId") UUID id) {
 		return ResponseEntity.ok(customerService.findCustomerById(id));
 	}
 

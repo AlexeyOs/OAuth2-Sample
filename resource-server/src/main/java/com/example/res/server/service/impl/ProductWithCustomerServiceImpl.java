@@ -10,8 +10,8 @@ import com.example.res.server.service.ProductWithCustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -26,14 +26,14 @@ public class ProductWithCustomerServiceImpl implements ProductWithCustomerServic
     private ProductMapper productMapper;
 
     @Override
-    public Optional<Product> addProductByCustomer(UUID customerId, Product product) {
-        Optional<Customer> customer = customerRepository.findById(customerId);
-        if (customer.isPresent()) {
-            product.setCustomer(customer.get());
-            return Optional.of(productRepository.save(product));
-        } else {
-            return Optional.empty();
-        }
+    public ProductDto addProductByCustomer(UUID customerId, ProductDto productDto) {
+        Customer customerEntity = customerRepository.getOne(customerId);
+        Product productEntity = productMapper.toEntity(productDto);
+        productEntity.setCustomer(customerEntity);
+        productEntity.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+        productEntity.setIsDeleted(false);
+        Product resultProductEntity = productRepository.save(productEntity);
+        return productMapper.toDto(resultProductEntity);
     }
 
     @Override

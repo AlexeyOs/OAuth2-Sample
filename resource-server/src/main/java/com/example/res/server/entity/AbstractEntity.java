@@ -48,17 +48,12 @@ public abstract class AbstractEntity implements Serializable {
         this.isDeleted = isDeleted;
     }
 
-
     public Timestamp getCreatedAt() {
         return createdAt;
     }
 
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public void setDeleted(Boolean deleted) {
-        isDeleted = deleted;
     }
 
     public Timestamp getModifiedAt() {
