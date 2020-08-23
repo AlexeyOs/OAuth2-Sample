@@ -2,7 +2,7 @@ package com.example.res.server.controllers;
 
 import com.example.res.server.ResourceServerApplication;
 
-import com.example.res.server.entity.Customer;
+import com.example.res.server.dto.CustomerDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,6 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 import java.util.List;
+import java.util.UUID;
 
 
 @RunWith(SpringRunner.class)
@@ -41,7 +42,7 @@ public class PublicResourceCustomerControllerTest {
 
     private MockMvc mockMvc;
 
-    private String customerCreatedId;
+    private UUID customerCreatedId;
 
 
     @Before
@@ -54,22 +55,18 @@ public class PublicResourceCustomerControllerTest {
 
     void addCustomer() throws Exception {
         String customerJson = "{\n" +
-                "    \"title\" :\"test1\",\n" +
-                "    \"isDeleted\" : false,\n" +
-                "    \"createdAt\":\"2020-08-16 09:45:12.000\"\n" +
+                "    \"title\" :\"test1\"\n" +
                 "}";
         ResultActions resultActions = this.mockMvc.perform(post("/api/v1/customers")
                 .content(customerJson)
                 .header("Content-Type","application/json")
         )
                 .andDo(print())
-                .andExpect(status().isCreated());
+                .andExpect(status().isOk());
 
-        String urlForGetCustomer = resultActions.andReturn().getResponse().getHeader("Location");
-        assertNotNull(urlForGetCustomer);
-        String customerId = urlForGetCustomer.substring(urlForGetCustomer.lastIndexOf("/") + 1);
-        assertNotNull(customerId);
-        customerCreatedId = customerId;
+        String jsonAsString = resultActions.andReturn().getResponse().getContentAsString();
+        CustomerDto customerDto = objectMapper.readValue(jsonAsString, CustomerDto.class);
+        customerCreatedId = customerDto.getId();
     }
 
     @Test
@@ -78,7 +75,7 @@ public class PublicResourceCustomerControllerTest {
                 .andDo(print())
                 .andExpect((ResultMatcher) jsonPath("$.title", is("test1")))
                 .andExpect((ResultMatcher) jsonPath("$.isDeleted", is(false)))
-                .andExpect((ResultMatcher) jsonPath("$.createdAt", is("2020-08-16 09:45:12.000")))
+                .andExpect((ResultMatcher) jsonPath("$.createdAt").isNotEmpty())
                 .andExpect(status().isOk());
     }
 
@@ -89,7 +86,7 @@ public class PublicResourceCustomerControllerTest {
                  .andExpect(status().isOk());
 
         String jsonAsString = resultActions.andReturn().getResponse().getContentAsString();
-        List<Customer> customers = objectMapper.readValue(jsonAsString, objectMapper.getTypeFactory().constructCollectionType(List.class, Customer.class));
-        assertTrue(customers.size() > 0);
+        List<CustomerDto> customerDtoList = objectMapper.readValue(jsonAsString, objectMapper.getTypeFactory().constructCollectionType(List.class, CustomerDto.class));
+        assertTrue(customerDtoList.size() > 0);
     }
 }
