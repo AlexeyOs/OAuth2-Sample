@@ -6,118 +6,6 @@
 	},
 	"item": [
 		{
-			"name": "Add product",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"title\" : \"testApi\",\r\n    \"description\" : \"Aphone SE\",\r\n    \"price\" : 250,\r\n    \"isDeleted\" : false\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:9081/api/v1/customers/99fd2afe-b8ba-4509-9e5f-8d84187ffb68/products",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9081",
-					"path": [
-						"api",
-						"v1",
-						"customers",
-						"99fd2afe-b8ba-4509-9e5f-8d84187ffb68",
-						"products"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get product",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:9081/api/v1/products/2ec85440-f602-4bc0-9173-77142d616cd2",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9081",
-					"path": [
-						"api",
-						"v1",
-						"products",
-						"2ec85440-f602-4bc0-9173-77142d616cd2"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get customers",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "123"
-				},
-				"url": {
-					"raw": "http://localhost:9081/api/v1/customers",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9081",
-					"path": [
-						"api",
-						"v1",
-						"customers"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Add customer",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"title\" :\"test1\",\r\n    \"isDeleted\" : false,\r\n    \"createdAt\":\"2020-08-16 09:45:12.000\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:9081/api/v1/customers",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "9081",
-					"path": [
-						"api",
-						"v1",
-						"customers"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Get client token",
 			"request": {
 				"auth": {
@@ -167,6 +55,163 @@
 					"path": [
 						"oauth",
 						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add customer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\" :\"test1\",\r\n    \"isDeleted\" : false,\r\n    \"createdAt\":\"2020-08-16 09:45:12.000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9081/api/v1/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9081",
+					"path": [
+						"api",
+						"v1",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get customers",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "123"
+				},
+				"url": {
+					"raw": "http://localhost:9081/api/v1/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9081",
+					"path": [
+						"api",
+						"v1",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get customer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9081/api/v1/customers/6f2d32c2-1f30-4f40-a684-c6150bf53603",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9081",
+					"path": [
+						"api",
+						"v1",
+						"customers",
+						"6f2d32c2-1f30-4f40-a684-c6150bf53603"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\" : \"testApi\",\r\n    \"description\" : \"Honor 40\",\r\n    \"price\" : 270,\r\n    \"isDeleted\" : true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9081/api/v1/customers/76ebedee-43a5-4555-b524-fe29d6fd98a3/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9081",
+					"path": [
+						"api",
+						"v1",
+						"customers",
+						"76ebedee-43a5-4555-b524-fe29d6fd98a3",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9081/api/v1/customers/76ebedee-43a5-4555-b524-fe29d6fd98a3/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9081",
+					"path": [
+						"api",
+						"v1",
+						"customers",
+						"76ebedee-43a5-4555-b524-fe29d6fd98a3",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9081/api/v1/products/2ec85440-f602-4bc0-9173-77142d616cd2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9081",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"2ec85440-f602-4bc0-9173-77142d616cd2"
 					]
 				}
 			},
