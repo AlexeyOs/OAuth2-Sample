@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.*;
 
 @Service
@@ -20,15 +21,6 @@ public class ProductServiceImpl implements ProductService {
     private ProductMapper productMapper;
 
     @Override
-    public List<Product> findAllProducts() {
-        Iterable<Product> productsIterable = productRepository.findAll();
-        Iterator<Product> productIterator = productsIterable.iterator();
-        List<Product> productList = new ArrayList<>();
-        productIterator.forEachRemaining(productList::add);
-        return productList;
-    }
-
-    @Override
     public ProductDto findProductById(UUID productId) {
         Product productEntity = productRepository.getOne(productId);
         return productMapper.toDto(productEntity);
@@ -36,8 +28,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
-    public void updateProduct(Product product) {
-        productRepository.save(product);
+    public ProductDto updateProduct(UUID productId, ProductDto productDto) {
+        Product productForUpdate = productRepository.getOne(productId);
+        productForUpdate.setTitle(productDto.getTitle());
+        productForUpdate.setDescription(productDto.getDescription());
+        productForUpdate.setPrice(productDto.getPrice());
+        productForUpdate.setModifiedAt(new Timestamp(System.currentTimeMillis()));
+        Product resultEntity = productRepository.save(productForUpdate);
+        return productMapper.toDto(resultEntity);
     }
 
     @Transactional

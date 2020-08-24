@@ -92,14 +92,28 @@ public class IntegrationPrivateCustomerControllerTest {
     @Test
     public void testPutCustomer() throws Exception {
         String customerJson = "{\n" +
-                "    \"title\" :\"test_V2_Public\"\n" +
+                "    \"title\" :\"test_V2_Private\"\n" +
                 "}";
         this.mockMvc.perform(put("/api/v1/customers/" + customerCreatedId)
                 .content(customerJson)
                 .header("Content-Type","application/json"))
                 .andDo(print())
-                .andExpect((ResultMatcher) jsonPath("$.title", is("test_V2_Public")))
+                .andExpect((ResultMatcher) jsonPath("$.title", is("test_V2_Private")))
                 .andExpect((ResultMatcher) jsonPath("$.isDeleted", is(false)))
+                .andExpect((ResultMatcher) jsonPath("$.createdAt").isNotEmpty())
+                .andExpect((ResultMatcher) jsonPath("$.modifiedAt").isNotEmpty())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testDeleteCustomer() throws Exception {
+        this.mockMvc.perform(delete("/api/v1/customers/" + customerCreatedId))
+                .andDo(print())
+                .andExpect(status().isOk());
+        this.mockMvc.perform(get("/api/v1/customers/" + customerCreatedId))
+                .andDo(print())
+                .andExpect((ResultMatcher) jsonPath("$.title", is("testPrivate")))
+                .andExpect((ResultMatcher) jsonPath("$.isDeleted", is(true)))
                 .andExpect((ResultMatcher) jsonPath("$.createdAt").isNotEmpty())
                 .andExpect(status().isOk());
     }

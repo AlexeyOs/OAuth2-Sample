@@ -7,8 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ProductService {
-    List<Product> findAllProducts();
     ProductDto findProductById(UUID productId);
-    void updateProduct(Product product);
+    ProductDto updateProduct(UUID productId, ProductDto productDto);
     void deleteProduct(UUID productId);
 }

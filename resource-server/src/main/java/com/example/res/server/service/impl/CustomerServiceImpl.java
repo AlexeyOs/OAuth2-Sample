@@ -52,6 +52,7 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerDto updateCustomer(UUID customerId, CustomerDto customerDto) {
         Customer customerForUpdate = customerRepository.getOne(customerId);
         customerForUpdate.setTitle(customerDto.getTitle());
+        customerForUpdate.setModifiedAt(new Timestamp(System.currentTimeMillis()));
         Customer resultEntity = customerRepository.save(customerForUpdate);
         return customerMapper.toDto(resultEntity);
     }

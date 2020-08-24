@@ -1,6 +1,6 @@
 package com.example.res.server.controllers;
 
-import com.example.res.server.entity.Product;
+import com.example.res.server.dto.ProductDto;
 import com.example.res.server.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,15 +17,14 @@ public class PrivateProductController {
     private ProductService productService;
 
     @PutMapping("products/{productId}")
-    public ResponseEntity<Product> updateProduct(@PathVariable("productId") UUID productId,
-                                                 @RequestBody Product product) {
-        productService.updateProduct(product);
-        return new ResponseEntity<Product>(product, HttpStatus.OK);
+    public ResponseEntity<ProductDto> updateProduct(@PathVariable("productId") UUID productId,
+                                                 @RequestBody ProductDto productDto) {
+        return ResponseEntity.ok(productService.updateProduct(productId, productDto));
     }
 
     @DeleteMapping("products/{productId}")
     public ResponseEntity<Void> deleteProduct(@PathVariable("productId") UUID productId) {
         productService.deleteProduct(productId);
-        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 }

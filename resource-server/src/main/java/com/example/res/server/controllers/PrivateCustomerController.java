@@ -25,6 +25,6 @@ public class PrivateCustomerController {
     @DeleteMapping("customers/{customerId}")
     public ResponseEntity<Void> deleteCustomer(@PathVariable("customerId") UUID customerId) {
         customerService.deleteCustomer(customerId);
-        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 }
